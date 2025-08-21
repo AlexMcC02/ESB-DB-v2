@@ -5,6 +5,7 @@ function App() {
   const [planets, setPlanets] = useState([]);
   const [searchTerm, setSearchTerm] = useState("TRAPPIST-1");
   const [errorMessage, setErrorMessage] = useState("");
+  const [noPlanetsMessage, setNoPlanetsMessage] = useState("");
 
   const fetchPlanets = async (searchTerm) => {
     try {
@@ -17,6 +18,16 @@ function App() {
       const data = await response.json();
       console.log("Fetched planets:", data);
       setPlanets(data);
+
+      if (data.length === 0) {
+        setNoPlanetsMessage(
+          "No planets found for the search term: " + searchTerm
+        );
+      } else {
+        setNoPlanetsMessage("");
+      }
+
+      setErrorMessage("");
     } catch (error) {
       setErrorMessage("Error fetching planets: " + error.message);
       console.error("Error fetching planets:", error);
@@ -49,7 +60,8 @@ function App() {
           </div>
           <div className="flex flex-col items-center mt-10">
             <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-            <p className="mt-4 text-sm text-red-600">{errorMessage}</p>
+            <p className="mt-4 text-base text-red-600">{errorMessage}</p>
+            <p className="mt-4 text-base">{noPlanetsMessage}</p>
           </div>
           <div className="flex flex-col items-center">
             <h2 className="text-3xl mt-8 mb-8">Search Results</h2>
