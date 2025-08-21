@@ -1,19 +1,16 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import Search from "./Search";
-
-const URL_START =
-  "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+pl_name,pl_orbper,pl_rade,hostname+from+ps+where+hostname='";
-const URL_END = "'&format=json";
 
 function App() {
   const [planets, setPlanets] = useState([]);
   const [searchTerm, setSearchTerm] = useState("TRAPPIST-1");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const fetchPlanets = async () => {
+  const fetchPlanets = async (searchTerm) => {
     try {
-      const response = await fetch("http://localhost:5053/trappist_1_test");
+      let url = `http://localhost:5053/retrieve_planets/${searchTerm}`;
+      const response = await fetch(url);
+      console.log("Attempted to reach: " + url);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -27,8 +24,8 @@ function App() {
   };
 
   useEffect(() => {
-    fetchPlanets();
-  });
+    fetchPlanets(searchTerm);
+  }, [searchTerm]);
 
   return (
     <>
