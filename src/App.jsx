@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import Search from "./Search";
 import {round} from "mathjs";
+import ErrorMessage from "./ErrorMessage";
+import NoPlanetsMessage from "./NoPlanetsMessage";
 
 function App() {
   const [planets, setPlanets] = useState([]);
@@ -56,13 +58,13 @@ function App() {
             </h6>
           </div>
 
-          <div className="flex flex-col items-center mt-10 w-full">
+          <div className="flex flex-col items-center mt-8 w-full">
             <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-            <p className="mt-4 text-base text-red-400">{errorMessage}</p>
-            <p className="mt-4 text-base text-gray-300">{noPlanetsMessage}</p>
+            <ErrorMessage errorMessage={errorMessage} />
+            <NoPlanetsMessage noPlanetsMessage={noPlanetsMessage} />
           </div>
-          <div className="flex flex-col items-center w-full mt-12">
-            <h2 className="text-3xl font-semibold mb-6">Search Results</h2>
+          <div className="flex flex-col items-center w-full mt-8">
+            <h2 className="text-3xl font-semibold mb-8">Search Results</h2>
             <div className="overflow-x-auto w-full">
               <table className="w-full text-left border-collapse bg-gray-900 text-white rounded-lg overflow-hidden shadow-md">
                 <thead className="bg-gray-800 text-blue-300">
