@@ -49,7 +49,7 @@ function App() {
       >
         <div className="flex flex-col items-center w-full max-w-6xl px-6 py-10 bg-black/60 rounded-3xl shadow-2xl opacity-90">
           <div className="text-center">
-            <h1 className="text-5xl font-bold mt-5">
+            <h1 className="text-5xl font-bold">
               Extrasolar Bodies Database v2.0
             </h1>
             <h6 className="text-sm mt-2 text-blue-200">
@@ -113,6 +113,7 @@ function App() {
               </table>
             </div>
           </div>
+          <p className="mt-8">Created by Alex McCullough</p>
         </div>
       </div>
     </>
