@@ -41,56 +41,74 @@ function App() {
   return (
     <>
       <div
-        className="flex items-start justify-center min-h-screen bg-cover bg-center"
+        className="flex items-center justify-center min-h-screen bg-cover bg-center text-white"
         style={{ backgroundImage: "url(/background-image.jpg)" }}
       >
-        <div className="flex flex-col items-center">
-          <div className="flex flex-col items-center">
-            <h1 className="text-5xl mt-5">
-              Extra&nbsp;
-              <span className="bg-linear-to-r from-yellow-100 to-yellow-500 bg-clip-text text-transparent">
-                Solar&nbsp;
-              </span>
-              Bodies Database v2.0
+        <div className="flex flex-col items-center w-full max-w-6xl px-6 py-10 bg-black/60 rounded-3xl shadow-2xl opacity-90">
+          <div className="text-center">
+            <h1 className="text-5xl font-bold mt-5">
+              Extrasolar Bodies Database v2.0
             </h1>
-            <h6 className="text-sm mt-2 text-blue-100">
+            <h6 className="text-sm mt-2 text-blue-200">
               An improved version of Alex's ESB-DB v1.0, now featuring NASA's
               exoplanet archive!
             </h6>
           </div>
-          <div className="flex flex-col items-center mt-10">
+
+          <div className="flex flex-col items-center mt-10 w-full">
             <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-            <p className="mt-4 text-base text-red-600">{errorMessage}</p>
-            <p className="mt-4 text-base">{noPlanetsMessage}</p>
+            <p className="mt-4 text-base text-red-400">{errorMessage}</p>
+            <p className="mt-4 text-base text-gray-300">{noPlanetsMessage}</p>
           </div>
-          <div className="flex flex-col items-center">
-            <h2 className="text-3xl mt-8 mb-8">Search Results</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th className="p-2 border-2">Planet Name</th>
-                  <th className="p-2 border-2">Orbital Period (days)</th>
-                  <th className="p-2 border-2">Radius (Earth radii)</th>
-                  <th className="p-2 border-2">Mass (Earth mass)</th>
-                  <th className="p-2 border-2">Temperature (Kelvin)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {planets.map((planet, idx) => (
-                  <tr key={idx}>
-                    <td className="p-2 border-2">{planet.pl_name}</td>
-                    <td className="p-2 border-2">
-                      {planet.pl_orbper ?? "N/A"}
-                    </td>
-                    <td className="p-2 border-2">{planet.pl_rade ?? "N/A"}</td>
-                    <td className="p-2 border-2">
-                      {planet.pl_bmasse ?? "N/A"}
-                    </td>
-                    <td className="p-2 border-2">{planet.pl_eqt ?? "N/A"}</td>
+          <div className="flex flex-col items-center w-full mt-12">
+            <h2 className="text-3xl font-semibold mb-6">Search Results</h2>
+            <div className="overflow-x-auto w-full">
+              <table className="w-full text-left border-collapse bg-gray-900 text-white rounded-lg overflow-hidden shadow-md">
+                <thead className="bg-gray-800 text-blue-300">
+                  <tr>
+                    <th className="p-3 border-b border-gray-700">
+                      Planet Name
+                    </th>
+                    <th className="p-3 border-b border-gray-700">
+                      Orbital Period (days)
+                    </th>
+                    <th className="p-3 border-b border-gray-700">
+                      Radius (Earth radii)
+                    </th>
+                    <th className="p-3 border-b border-gray-700">
+                      Mass (Earth mass)
+                    </th>
+                    <th className="p-3 border-b border-gray-700">
+                      Temperature (Kelvin)
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {planets.map((planet, idx) => (
+                    <tr
+                      key={idx}
+                      className="hover:bg-gray-800 transition-colors"
+                    >
+                      <td className="p-3 border-b border-gray-700">
+                        {planet.pl_name}
+                      </td>
+                      <td className="p-3 border-b border-gray-700">
+                        {planet.pl_orbper ?? "N/A"}
+                      </td>
+                      <td className="p-3 border-b border-gray-700">
+                        {planet.pl_rade ?? "N/A"}
+                      </td>
+                      <td className="p-3 border-b border-gray-700">
+                        {planet.pl_bmasse ?? "N/A"}
+                      </td>
+                      <td className="p-3 border-b border-gray-700">
+                        {planet.pl_eqt ?? "N/A"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
