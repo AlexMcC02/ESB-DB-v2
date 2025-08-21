@@ -7,23 +7,19 @@ const URL_START =
 const URL_END = "'&format=json";
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState("Kepler-22");
+  const [planets, setPlanets] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("TRAPPIST-1");
   const [errorMessage, setErrorMessage] = useState("");
 
   const fetchPlanets = async () => {
     try {
-      const response = await fetch("http://localhost:5053/retrieve_planets");
+      const response = await fetch("http://localhost:5053/trappist_1_test");
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      if (Array.isArray(data)) {
-        data.forEach((planet, idx) => {
-          console.log(`Planet ${idx + 1}:`, planet);
-        });
-      } else {
-        console.log("Received data:", data);
-      }
+      console.log("Fetched planets:", data);
+      setPlanets(data);
     } catch (error) {
       setErrorMessage("Error fetching planets: " + error.message);
       console.error("Error fetching planets:", error);
@@ -58,8 +54,34 @@ function App() {
             <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
             <p className="mt-4 text-sm text-red-600">{errorMessage}</p>
           </div>
-          <div>
-            <h2 className="text-3xl mt-8">Search Results</h2>
+          <div className="flex flex-col items-center">
+            <h2 className="text-3xl mt-8 mb-8">Search Results</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th className="p-2 border-2">Planet Name</th>
+                  <th className="p-2 border-2">Orbital Period (days)</th>
+                  <th className="p-2 border-2">Radius (Earth radii)</th>
+                  <th className="p-2 border-2">Mass (Earth mass)</th>
+                  <th className="p-2 border-2">Temperature (Kelvin)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {planets.map((planet, idx) => (
+                  <tr key={idx}>
+                    <td className="p-2 border-2">{planet.pl_name}</td>
+                    <td className="p-2 border-2">
+                      {planet.pl_orbper ?? "N/A"}
+                    </td>
+                    <td className="p-2 border-2">{planet.pl_rade ?? "N/A"}</td>
+                    <td className="p-2 border-2">
+                      {planet.pl_bmasse ?? "N/A"}
+                    </td>
+                    <td className="p-2 border-2">{planet.pl_eqt ?? "N/A"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
