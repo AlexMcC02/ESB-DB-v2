@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Search from "./Search";
+import {round} from "mathjs";
 
 function App() {
   const [planets, setPlanets] = useState([]);
@@ -90,19 +91,19 @@ function App() {
                       className="hover:bg-gray-800 transition-colors"
                     >
                       <td className="p-3 border-b border-gray-700">
-                        {planet.pl_name}
+                        <strong>{planet.pl_name}</strong>
                       </td>
                       <td className="p-3 border-b border-gray-700">
-                        {planet.pl_orbper ?? "N/A"}
+                        {round(planet.pl_orbper, 2) ?? "N/A"}
                       </td>
                       <td className="p-3 border-b border-gray-700">
-                        {planet.pl_rade ?? "N/A"}
+                        {round(planet.pl_rade, 2) ?? "N/A"}
                       </td>
                       <td className="p-3 border-b border-gray-700">
-                        {planet.pl_bmasse ?? "N/A"}
+                        {round(planet.pl_bmasse, 2) ?? "N/A"}
                       </td>
                       <td className="p-3 border-b border-gray-700">
-                        {planet.pl_eqt ?? "N/A"}
+                        {round(planet.pl_eqt) ?? "N/A"}
                       </td>
                     </tr>
                   ))}
